@@ -1,4 +1,3 @@
-# vaultpay-infrastructure
-# VaultPay Infrastructure hello world
+# VaultPay Infrastructure
 Cloud infrastructure for VaultPay
 
