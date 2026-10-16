@@ -10,3 +10,11 @@ resource "aws_s3_bucket" "team_files" {
     Owner = "j-iam-admin"
   }
 }
+
+resource "aws_s3_bucket_versioning" "versioning_example" {
+  bucket = aws_s3_bucket.team_files.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
