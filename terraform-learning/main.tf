@@ -2,17 +2,14 @@ provider "aws" {
   region = "us-east-1"
 }
     
-resource "aws_s3_bucket" "team_files" {
-  bucket = "j-tf-learning-bucket"
+resource "aws_s3_bucket" "first_bucket" {
+  bucket = "${var.owner}-tf-learning-bucket"
 
-  tags = {
-    Project = "terraform-learning"
-    Owner = "j-iam-admin"
-  }
+  tags = var.tags
 }
 
-resource "aws_s3_bucket_versioning" "versioning_example" {
-  bucket = aws_s3_bucket.team_files.id
+resource "aws_s3_bucket_versioning" "first_bucket" {
+  bucket = aws_s3_bucket.first_bucket.id
 
   versioning_configuration {
     status = "Enabled"
