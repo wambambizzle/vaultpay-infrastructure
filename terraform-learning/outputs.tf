@@ -1,16 +1,14 @@
+output "bucket_id" {
+  description = "The name of the S3 bucket"
+  value       = module.bucket.bucket_id
+}
+
 output "bucket_arn" {
   description = "The ARN of the S3 bucket"
-  value       = aws_s3_bucket.first_bucket.arn
-  sensitive   = true
+  value       = module.bucket.bucket_arn
 }
 
-output "bucket_region" {
-  description = "The region of the S3 bucket"
-  value = aws_s3_bucket.first_bucket.bucket_region
+output "bucket_domain_name" {
+  description = "The bucket URL"
+  value       = module.bucket.bucket_domain_name
 }
-
-# From following along with the vid
-# output "bucket_domain_name" {
-#   description = "The bucket URL"
-#   value       = aws_s3_bucket.first_bucket.bucket_regional_domain_name
-# }
