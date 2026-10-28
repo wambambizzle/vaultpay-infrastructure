@@ -1,6 +1,5 @@
-aws_main_vpc_cdir            = "10.0.0.0/20"
-vaultpay-public-subnet-a     = "10.0.1.0/24"
-vaultpay-public-subnet-b     = "10.0.2.0/24"
+vpc_cdir                     = "10.0.0.0/20"
+public_subnet_cidrs          = ["10.0.1.0/24", "10.0.2.0/24"]
 region-a                     = "us-east-1a"
 region-b                     = "us-east-1b"
 

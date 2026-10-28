@@ -1,16 +1,11 @@
-variable "aws_main_vpc_cdir" {
+variable "vpc_cdir" {
   description = "The CDIR range for the VPC"
   type = string
 }
 
-variable "vaultpay-public-subnet-a" {
-  description = "The subnet CDIR range for public a"
-  type = string
-}
-
-variable "vaultpay-public-subnet-b" {
-  description = "The subnet CDIR range for public b"
-  type = string
+variable "public_subnet_cidrs" {
+  description = "CIDR blocks for the public subnets"
+  type = list(string)
 }
 
 variable "region-a" {
