@@ -12,9 +12,9 @@ resource "aws_vpc" "main" {
 }
 
 resource "aws_subnet" "vaultpay-public-subnet-a" {
-  vpc_id        = aws_vpc.main.id
-  cidr_block    = var.vaultpay-public-subnet-a
-  region        = var.region-a 
+  vpc_id              = aws_vpc.main.id
+  cidr_block          = var.vaultpay-public-subnet-a
+  availability_zone   = var.region-b
 
   tags = {
     Project = var.project_name
@@ -22,9 +22,9 @@ resource "aws_subnet" "vaultpay-public-subnet-a" {
 }
 
 resource "aws_subnet" "vaultpay-public-subnet-b" {
-  vpc_id        = aws_vpc.main.id
-  cidr_block    = var.vaultpay-public-subnet-b
-  region        = var.region-b
+  vpc_id              = aws_vpc.main.id
+  cidr_block          = var.vaultpay-public-subnet-b
+  availability_zone   = var.region-b
 
   tags = {
     Project = var.project_name
