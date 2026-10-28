@@ -3,13 +3,23 @@ variable "aws_main_vpc_cdir" {
   type = string
 }
 
-variable "public_a_subnet_cdir" {
+variable "vaultpay-public-subnet-a" {
   description = "The subnet CDIR range for public a"
   type = string
 }
 
-variable "public_b_subnet_cdir" {
+variable "vaultpay-public-subnet-b" {
   description = "The subnet CDIR range for public b"
+  type = string
+}
+
+variable "region-a" {
+  description = "The region for A"
+  type = string
+}
+
+variable "region-b" {
+  description = "The region for B"
   type = string
 }
 
@@ -36,4 +46,9 @@ variable "private_db_b_subnet_cdir" {
 variable "tags" {
   description = "Tags to apply to resources"
   type = map(string)
+}
+
+variable "project_name" {
+  description = "The name of the Project"
+  type = string
 }

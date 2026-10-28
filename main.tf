@@ -10,3 +10,24 @@ resource "aws_vpc" "main" {
 
   tags = var.tags
 }
+
+resource "aws_subnet" "vaultpay-public-subnet-a" {
+  vpc_id        = aws_vpc.main.id
+  cidr_block    = var.vaultpay-public-subnet-a
+  region        = var.region-a 
+
+  tags = {
+    Project = var.project_name
+  }
+}
+
+resource "aws_subnet" "vaultpay-public-subnet-b" {
+  vpc_id        = aws_vpc.main.id
+  cidr_block    = var.vaultpay-public-subnet-b
+  region        = var.region-b
+
+  tags = {
+    Project = var.project_name
+  }
+}
+
