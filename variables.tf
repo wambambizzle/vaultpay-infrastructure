@@ -1,34 +1,34 @@
-variable "vpc-cdir" {
+variable "aws_main_vpc_cdir" {
   description = "The CDIR range for the VPC"
   type = string
 }
 
-variable "public-a-subnet-cdir" {
+variable "public_a_subnet_cdir" {
   description = "The subnet CDIR range for public a"
   type = string
 }
 
-variable "public-b-subnet-cdir" {
+variable "public_b_subnet_cdir" {
   description = "The subnet CDIR range for public b"
   type = string
 }
 
-variable "private-app-a-subnet-cdir" {
+variable "private_app_a_subnet_cdir" {
   description = "The subnet CDIR range for private app a"
   type = string
 }
 
-variable "private-app-b-subnet-cdir" {
+variable "private_app_b_subnet_cdir" {
   description = "The subnet CDIR range for private app b"
   type = string
 }
 
-variable "private-db-a-subnet-cdir" {
+variable "private_db_a_subnet_cdir" {
   description = "The subnet CDIR range for private db a"
   type = string
 }
 
-variable "private-db-b-subnet-cdir" {
+variable "private_db_b_subnet_cdir" {
   description = "The subnet CDIR range for private db b"
   type = string
 }

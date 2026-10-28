@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_vpc" "main" {
-  cidr_block            = var.vpc-cdir
+  cidr_block            = var.aws_main_vpc_cdir
 
   enable_dns_support    = true
   enable_dns_hostnames  = true
