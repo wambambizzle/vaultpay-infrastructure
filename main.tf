@@ -14,7 +14,7 @@ resource "aws_vpc" "main" {
 resource "aws_subnet" "vaultpay-public-subnet-a" {
   vpc_id              = aws_vpc.main.id
   cidr_block          = var.vaultpay-public-subnet-a
-  availability_zone   = var.region-b
+  availability_zone   = var.region-a
 
   tags = {
     Project = var.project_name
