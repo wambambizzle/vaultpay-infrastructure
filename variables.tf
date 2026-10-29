@@ -18,24 +18,14 @@ variable "region-b" {
   type = string
 }
 
-variable "private_app_a_subnet_cdir" {
-  description = "The subnet CDIR range for private app a"
-  type = string
+variable "private_app_cdirs" {
+  description = "CIDR blocks for the private app subnets"
+  type = list(string)
 }
 
-variable "private_app_b_subnet_cdir" {
-  description = "The subnet CDIR range for private app b"
-  type = string
-}
-
-variable "private_db_a_subnet_cdir" {
-  description = "The subnet CDIR range for private db a"
-  type = string
-}
-
-variable "private_db_b_subnet_cdir" {
-  description = "The subnet CDIR range for private db b"
-  type = string
+variable "private_db_cdirs" {
+  description = "CIDR blocks for the private db subnets"
+  type = list(string)
 }
 
 variable "tags" {

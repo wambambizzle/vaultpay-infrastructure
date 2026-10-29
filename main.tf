@@ -10,6 +10,50 @@ resource "aws_vpc" "main" {
   tags = var.tags
 }
 
+resource "aws_subnet" "private_app_a" {
+  vpc_id              = aws_vpc.main.id
+  cidr_block          = var.private_app_cdirs[0]
+  availability_zone   = var.region-a
+
+  tags = {
+    Name    = "vaultpay-private-app-subnet-a"
+    Project = var.project_name
+  }
+}
+
+resource "aws_subnet" "private_app_b" {
+  vpc_id              = aws_vpc.main.id
+  cidr_block          = var.private_app_cdirs[1]
+  availability_zone   = var.region-b
+
+  tags = {
+    Name    = "vaultpay-private-app-subnet-b"
+    Project = var.project_name
+  }
+}
+
+resource "aws_subnet" "private_db_a" {
+  vpc_id              = aws_vpc.main.id
+  cidr_block          = var.private_db_cdirs[0]
+  availability_zone   = var.region-a
+
+  tags = {
+    Name    = "vaultpay-private-db-subnet-a"
+    Project = var.project_name
+  }
+}
+
+resource "aws_subnet" "private_db_b" {
+  vpc_id              = aws_vpc.main.id
+  cidr_block          = var.private_db_cdirs[1]
+  availability_zone   = var.region-b
+
+  tags = {
+    Name    = "vaultpay-private-db-subnet-b"
+    Project = var.project_name
+  }
+}
+
 resource "aws_subnet" "public_a" {
   vpc_id              = aws_vpc.main.id
   cidr_block          = var.public_subnet_cidrs[0]
