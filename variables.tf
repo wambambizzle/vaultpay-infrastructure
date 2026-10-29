@@ -18,12 +18,12 @@ variable "region-b" {
   type = string
 }
 
-variable "private_app_cdirs" {
+variable "app_private_subnet_cdirs" {
   description = "CIDR blocks for the private app subnets"
   type = list(string)
 }
 
-variable "private_db_cdirs" {
+variable "db_private_subnet_cdirs" {
   description = "CIDR blocks for the private db subnets"
   type = list(string)
 }
