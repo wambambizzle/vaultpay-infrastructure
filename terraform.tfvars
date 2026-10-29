@@ -13,3 +13,13 @@ tags = {
   Name    = "vaultpay-vpc"
   Project = "VaultPay"
 }
+
+igw-tags = {
+  Name    = "vaultpay-igw"
+  Project = "VaultPay"
+}
+
+route-table-tags = {
+  Name    = "vaultpay-public-rt"
+  Project = "VaultPay"
+}

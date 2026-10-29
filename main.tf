@@ -32,3 +32,9 @@ resource "aws_subnet" "public-b" {
   }
 }
 
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.main.id
+
+  tags = var.igw-tags
+}
+
