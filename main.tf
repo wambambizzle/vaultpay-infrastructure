@@ -126,26 +126,24 @@ resource "aws_route_table_association" "app_private_b" {
   route_table_id = aws_route_table.private.id
 }
 
-resource "aws_eip" "public_static_ip" {
+resource "aws_eip" "nat" {
   domain = "vpc"
 
   tags = {
-    Name    = "vaultpay-public-static-ip"
+    Name    = "vaultpay-nat-eip"
     Project = var.project_name
   }
 }
 
 resource "aws_nat_gateway" "nat_gateway" {
-  allocation_id = aws_eip.public_static_ip.id
+  allocation_id = aws_eip.nat.id
   subnet_id     = aws_subnet.public_a.id
 
   tags = {
-    Name    = "nat-gateway"
+    Name    = "vaultpay-nat-gw"
     Project = var.project_name
   }
 
-  # To ensure proper ordering, it is recommended to add an explicit dependency
-  # on the Internet Gateway for the VPC.
   depends_on = [aws_internet_gateway.main]
 }
 
