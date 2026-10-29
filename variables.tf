@@ -43,12 +43,12 @@ variable "tags" {
   type = map(string)
 }
 
-variable "igw-tags" {
+variable "igw_tags" {
   description = "Tags to apply to resources"
   type = map(string)
 }
 
-variable "route-table-tags" {
+variable "public_route_table_tags" {
   description = "Tags to apply to resources"
   type = map(string)
 }

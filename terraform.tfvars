@@ -14,12 +14,12 @@ tags = {
   Project = "VaultPay"
 }
 
-igw-tags = {
+igw_tags = {
   Name    = "vaultpay-igw"
   Project = "VaultPay"
 }
 
-route-table-tags = {
+public_route_table_tags = {
   Name    = "vaultpay-public-rt"
   Project = "VaultPay"
 }
