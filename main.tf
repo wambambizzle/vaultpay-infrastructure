@@ -3,10 +3,17 @@ provider "aws" {
 }
 
 module "vpc" {
-  source = "./modules/vpc"
+  source                    = "./modules/vpc"
   project_name              = var.project_name
   vpc_cidr                  = var.vpc_cidr
   public_subnet_cidrs       = var.public_subnet_cidrs
   app_private_subnet_cidrs  = var.app_private_subnet_cidrs
   db_private_subnet_cidrs   = var.db_private_subnet_cidrs 
+}
+
+module "database" {
+  source                = "./modules/database"
+  project_name          = var.project_name
+  db_private_subnet_ids = module.vpc.db_private_subnet_ids
+  vpc_id                = module.vpc.vpc_id 
 }
