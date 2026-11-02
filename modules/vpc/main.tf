@@ -1,5 +1,5 @@
 resource "aws_vpc" "main" {
-  cidr_block           = var.vpc_cdir
+  cidr_block           = var.vpc_cidr
   enable_dns_support   = true
   enable_dns_hostnames = true
 
@@ -33,7 +33,7 @@ resource "aws_subnet" "public_b" {
 
 resource "aws_subnet" "app_private_a" {
   vpc_id            = aws_vpc.main.id
-  cidr_block        = var.app_private_subnet_cdirs[0]
+  cidr_block        = var.app_private_subnet_cidrs[0]
   availability_zone = "us-east-1a"
 
   tags = {
@@ -44,7 +44,7 @@ resource "aws_subnet" "app_private_a" {
 
 resource "aws_subnet" "app_private_b" {
   vpc_id            = aws_vpc.main.id
-  cidr_block        = var.app_private_subnet_cdirs[1]
+  cidr_block        = var.app_private_subnet_cidrs[1]
   availability_zone = "us-east-1b"
 
   tags = {
@@ -55,7 +55,7 @@ resource "aws_subnet" "app_private_b" {
 
 resource "aws_subnet" "db_private_a" {
   vpc_id            = aws_vpc.main.id
-  cidr_block        = var.db_private_subnet_cdirs[0]
+  cidr_block        = var.db_private_subnet_cidrs[0]
   availability_zone = "us-east-1a"
 
   tags = {
@@ -66,7 +66,7 @@ resource "aws_subnet" "db_private_a" {
 
 resource "aws_subnet" "db_private_b" {
   vpc_id            = aws_vpc.main.id
-  cidr_block        = var.db_private_subnet_cdirs[1]
+  cidr_block        = var.db_private_subnet_cidrs[1]
   availability_zone = "us-east-1b"
 
   tags = {

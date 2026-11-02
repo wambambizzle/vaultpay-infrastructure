@@ -5,8 +5,8 @@ provider "aws" {
 module "vpc" {
   source = "./modules/vpc"
   project_name              = var.project_name
-  vpc_cdir                  = var.vpc_cdir
+  vpc_cidr                  = var.vpc_cidr
   public_subnet_cidrs       = var.public_subnet_cidrs
-  app_private_subnet_cdirs  = var.app_private_subnet_cdirs
-  db_private_subnet_cdirs   = var.db_private_subnet_cdirs 
+  app_private_subnet_cidrs  = var.app_private_subnet_cidrs
+  db_private_subnet_cidrs   = var.db_private_subnet_cidrs 
 }
