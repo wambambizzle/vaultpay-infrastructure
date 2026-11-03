@@ -1,6 +1,6 @@
 resource "aws_db_instance" "vaultpay" {
   allocated_storage           = 10
-  db_name                     = "${var.project_name}-pg-db"
+  db_name                     = "vaultpay-pg-db"
   db_subnet_group_name        = aws_db_subnet_group.vaultpay.name
   engine                      = "postgres"
   engine_version              = "17"
