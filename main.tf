@@ -20,4 +20,6 @@ module "database" {
   backup_retention_period = var.backup_retention_period 
   deletion_protection     = var.deletion_protection
   skip_final_snapshot     = var.skip_final_snapshot
+  db_name                 = var.db_name
+  db_username             = var.db_username  
 }

@@ -1,24 +1,33 @@
 resource "aws_db_instance" "vaultpay" {
-  allocated_storage           = 10
-  db_name                     = "vaultpay"
-  identifier                  = "vaultpay-pg-db"
-  db_subnet_group_name        = aws_db_subnet_group.vaultpay.name
+  # General Settings
   engine                      = "postgres"
-  engine_version              = "17"
-  instance_class              = "db.t3.micro"
+  engine_version              = "18"
+  instance_class              = "db.t4g.micro"
+  allocated_storage           = 20
+  identifier                  = "vaultpay-db"
+  db_name                     = var.db_name
+  
+  # Credentials
+  username                    = var.db_username
   manage_master_user_password = true
-  # TODO: not sure bout this one
-  # availability_zone           = "us-east-1a"
-  publicly_accessible         = false
+
+  # Storage
+  storage_type                = "gp3"
   storage_encrypted           = true
-  username                    = "vaultpay_admin"
+
+  # Network & Access
+  publicly_accessible         = false
+  db_subnet_group_name        = aws_db_subnet_group.vaultpay.name
+  vpc_security_group_ids      = [aws_security_group.rds.id]
+
+  # Environment
   multi_az                    = var.multi_az
   backup_retention_period     = var.backup_retention_period
   deletion_protection         = var.deletion_protection
   skip_final_snapshot         = var.skip_final_snapshot
 
   tags = {
-    Name    = "${var.project_name}-rds-pg-db"
+    Name    = "${var.project_name}-db-instance"
     Project = var.project_name
   }
 }
