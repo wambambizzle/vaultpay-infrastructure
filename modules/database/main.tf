@@ -1,3 +1,25 @@
+resource "aws_db_instance" "vaultpay" {
+  allocated_storage           = 10
+  db_name                     = "${var.project_name}-pg-db"
+  db_subnet_group_name        = aws_db_subnet_group.vaultpay.name
+  engine                      = "postgres"
+  engine_version              = "12.0"
+  instance_class              = "db.t3.micro"
+  manage_master_user_password = true
+  # TODO: ENV var?
+  availability_zone           = "us-east-1a"
+  publicly_accessible         = false
+  storage_encrypted           = true
+  deletion_protection         = false
+  skip_final_snapshot         = true
+
+  tags = {
+    Name    = "${var.project_name}-rds-pg-db"
+    Project = var.project_name
+  }
+}
+
+
 resource "aws_db_subnet_group" "vaultpay" {
   name        = "vaultpay-db-subnet-group"
   description = "Subnets available for VaultPay RDS database placement"
