@@ -3,7 +3,7 @@ resource "aws_db_instance" "vaultpay" {
   db_name                     = "${var.project_name}-pg-db"
   db_subnet_group_name        = aws_db_subnet_group.vaultpay.name
   engine                      = "postgres"
-  engine_version              = "12.0"
+  engine_version              = "17"
   instance_class              = "db.t3.micro"
   manage_master_user_password = true
   # TODO: not sure bout this one
