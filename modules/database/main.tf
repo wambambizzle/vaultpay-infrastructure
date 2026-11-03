@@ -10,6 +10,7 @@ resource "aws_db_instance" "vaultpay" {
   # availability_zone           = "us-east-1a"
   publicly_accessible         = false
   storage_encrypted           = true
+  username                    = "j-iam-admin"
   multi_az                    = var.multi_az
   backup_retention_period     = var.backup_retention_period
   deletion_protection         = var.deletion_protection
