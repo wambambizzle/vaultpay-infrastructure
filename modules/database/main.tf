@@ -6,12 +6,14 @@ resource "aws_db_instance" "vaultpay" {
   engine_version              = "12.0"
   instance_class              = "db.t3.micro"
   manage_master_user_password = true
-  # TODO: ENV var?
-  availability_zone           = "us-east-1a"
+  # TODO: not sure bout this one
+  # availability_zone           = "us-east-1a"
   publicly_accessible         = false
   storage_encrypted           = true
-  deletion_protection         = false
-  skip_final_snapshot         = true
+  multi_az                    = var.multi_az
+  backup_retention_period     = var.backup_retention_period
+  deletion_protection         = var.deletion_protection
+  skip_final_snapshot         = var.skip_final_snapshot
 
   tags = {
     Name    = "${var.project_name}-rds-pg-db"

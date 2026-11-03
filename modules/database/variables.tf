@@ -12,3 +12,23 @@ variable "project_name" {
   description = "The name used for resource naming and tags"
   type        = string
 }
+
+variable "multi_az" {
+  description = "Multi avaialbity zone"
+  type        = bool
+}
+
+variable "backup_retention_period" {
+  description = "The backup retention period"
+  type        = number
+}
+
+variable "deletion_protection" {
+  description = "If the server has deletion protection"
+  type        = bool
+}
+
+variable "skip_final_snapshot" {
+  description = "If RDS should skip the final snapshot"
+  type        = bool
+}
