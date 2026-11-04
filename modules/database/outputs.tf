@@ -1,5 +1,5 @@
 output "db_endpoint" {
-  description = "The end point for the RDS database"
+  description = "The endpoint address of the RDS database instance."
   value       = aws_db_instance.vaultpay.endpoint
 }
 
@@ -9,13 +9,13 @@ output "db_port" {
 }
 
 output "db_name" {
-  description = "The name for the RDS database"
+  description = "The name of the PostgreSQL database inside the RDS instance."
   value       = aws_db_instance.vaultpay.db_name
 }
 
 output "db_security_group_id" {
-  description = "The security group id for the RDS database"
-  value       = aws_db_instance.vaultpay.vpc_security_group_ids[0]
+  description = "The ID of the RDS security group."
+  value       = aws_security_group.rds.id
 }
 
 output "db_master_secret_arn" {
