@@ -42,3 +42,8 @@ variable "db_username" {
   description = "The rds database username"
   type        = string
 }
+
+variable "app_private_subnet_cidrs" {
+  description = "CIDR blocks for the app private subnets"
+  type        = list(string)
+}

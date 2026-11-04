@@ -12,14 +12,15 @@ module "vpc" {
 }
 
 module "database" {
-  source                  = "./modules/database"
-  project_name            = var.project_name
-  db_private_subnet_ids   = module.vpc.db_private_subnet_ids
-  vpc_id                  = module.vpc.vpc_id
-  multi_az                = var.multi_az
-  backup_retention_period = var.backup_retention_period 
-  deletion_protection     = var.deletion_protection
-  skip_final_snapshot     = var.skip_final_snapshot
-  db_name                 = var.db_name
-  db_username             = var.db_username  
+  source                    = "./modules/database"
+  project_name              = var.project_name
+  db_private_subnet_ids     = module.vpc.db_private_subnet_ids
+  vpc_id                    = module.vpc.vpc_id
+  multi_az                  = var.multi_az
+  backup_retention_period   = var.backup_retention_period 
+  deletion_protection       = var.deletion_protection
+  skip_final_snapshot       = var.skip_final_snapshot
+  db_name                   = var.db_name
+  db_username               = var.db_username
+  app_private_subnet_cidrs  = var.app_private_subnet_cidrs
 }

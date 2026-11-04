@@ -32,7 +32,6 @@ resource "aws_db_instance" "vaultpay" {
   }
 }
 
-
 resource "aws_db_subnet_group" "vaultpay" {
   name        = "vaultpay-db-subnet-group"
   description = "Subnets available for VaultPay RDS database placement"
@@ -49,7 +48,13 @@ resource "aws_security_group" "rds" {
   description = "Security group for the VaultPay RDS instance"
   vpc_id      = var.vpc_id
   
-  ingress = []
+  ingress {
+    description = "PostgresSQL from internal subnets test"
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    cidr_blocks = var.app_private_subnet_cidrs
+  }
 
   egress { 
     from_port   = 0
