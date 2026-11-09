@@ -17,7 +17,7 @@ resource "aws_ecr_repository" "vaultpay" {
 data "aws_caller_identity" "vaultpay" {}
 
 resource "aws_s3_bucket" "vaultpay_run_time" {
-  bucket        = "${aws_caller_identity.vaultpay.account_id}-vaultpay-s3-runtime"
+  bucket        = "${data.aws_caller_identity.vaultpay.account_id}-vaultpay-s3-runtime"
 
   # DESTORY GUARD TOGGLE
   force_destroy = var.force_destroy
