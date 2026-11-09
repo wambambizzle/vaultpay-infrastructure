@@ -56,3 +56,13 @@ variable "db_username" {
   description = "The rds database username"
   type        = string
 }
+
+variable "force_destroy" {
+  description = "If the aws S3 bucket should allow force deletion"
+  type        = bool
+}
+
+variable "force_delete" {
+  description = "If the aws ecr repository should allow force deletion"
+  type        = bool
+}

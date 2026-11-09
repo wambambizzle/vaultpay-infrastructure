@@ -1,8 +1,9 @@
 resource "aws_ecr_repository" "vaultpay" {
-  name                 = "vaultpay-ecr-app-image"
-  # image_tag_mutability = "MUTABLE"
+  name         = "vaultpay-ecr-app-image"
 
-  # TODO: add the optional env vars
+  # DESTORY GUARD TOGGLE
+  force_delete = var.force_delete
+
   image_scanning_configuration {
     scan_on_push = true
   }
@@ -16,7 +17,10 @@ resource "aws_ecr_repository" "vaultpay" {
 data "aws_caller_identity" "vaultpay" {}
 
 resource "aws_s3_bucket" "vaultpay_run_time" {
-  bucket = "${aws_caller_identity.vaultpay.account_id}-vaultpay-s3-runtime"
+  bucket        = "${aws_caller_identity.vaultpay.account_id}-vaultpay-s3-runtime"
+
+  # DESTORY GUARD TOGGLE
+  force_destroy = var.force_destroy
 
   tags = {
     Name    = "${var.project_name}-s3-run-time"
