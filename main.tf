@@ -31,7 +31,7 @@ resource "aws_iam_role" "role" {
   name          = "${var.project_name}-ecr-iam-role"
   description   = "The aws iam role for the ECR instance."
 
-  assume_role_policy = data.aws_iam_policy_document.ecr_assume_role
+  assume_role_policy = data.aws_iam_policy_document.ecr_policy
 
   tags = {
     Name    = "${var.project_name}-ecr-iam-role"
