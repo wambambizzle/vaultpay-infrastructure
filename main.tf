@@ -27,73 +27,40 @@ module "database" {
   app_private_subnet_cidrs  = var.app_private_subnet_cidrs
 }
 
-resource "aws_iam_role" "role" {
-  name          = "${var.project_name}-ecr-iam-role"
-  description   = "The aws iam role for the ECR instance."
+resource "aws_iam_role" "app" {
+  name          = "${var.project_name}-app-role"
+  description   = "The IAM role assumed by VaultPay application EC2 instances"
 
-  assume_role_policy = data.aws_iam_policy_document.ecr_policy.json
+  assume_role_policy = data.aws_iam_policy_document.ec2_assume_role.json
 
   tags = {
-    Name    = "${var.project_name}-ecr-iam-role"
+    Name    = "${var.project_name}-app-role"
     Project = var.project_name
   }
 }
 
-resource "aws_iam_instance_profile" "ecr_profile" {
-  name = "${var.project_name}-ecr-profile"
-  role = aws_iam_role.role.name
-
-  tags = {
-    Name    = "${var.project_name}-ecr-profile"
-    Project = var.project_name
-  }
-}
-
-resource "aws_iam_policy" "ecr_policy" {
-  name        = "${var.project_name}-ecr_policy"
-  description = "The AWS IAM policy for ECR instance."
-  policy      = data.aws_iam_policy_document.ecr_policy.json
-}
-
-resource "aws_iam_role_policy_attachment" "ecr_readonly" {
-  role       = aws_iam_role.role.name
+resource "aws_iam_role_policy_attachment" "ecr_read" {
+  role       = aws_iam_role.app.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
-resource "aws_iam_role_policy_attachment" "session_manager" {
-  role       = aws_iam_role.role.name
+resource "aws_iam_role_policy_attachment" "ssm" {
+  role       = aws_iam_role.app.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 }
 
-resource "aws_iam_role_policy" "rds_secret" {
-  name = "${var.project_name}-rds-secret-read"
-  role = aws_iam_role.role.id
-
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = "secretsmanager:GetSecretValue"
-        Resource = module.database.db_master_secret_arn
-      }
-    ]
-  })
+resource "aws_iam_role_policy" "app_runtime" {
+  name   = "${var.project_name}-app-runtime"
+  role   = aws_iam_role.app.id
+  policy = data.aws_iam_policy_document.app_runtime.json
 }
 
-resource "aws_iam_role_policy" "s3_reports" {
-  name = "${var.project_name}-s3-reports"
-  role = aws_iam_role.role.id
+resource "aws_iam_instance_profile" "app" {
+  name = "${var.project_name}-app-profile"
+  role = aws_iam_role.app.name
 
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = "s3:PutObject"
-        Resource = "${aws_s3_bucket.runtime.arn}/reports/*"
-      }
-    ]
-  })
+  tags = {
+    Name    = "${var.project_name}-app-profile"
+    Project = var.project_name
+  }
 }
-
