@@ -64,3 +64,37 @@ resource "aws_iam_instance_profile" "app" {
     Project = var.project_name
   }
 }
+
+resource "aws_security_group" "alb" {
+  name        = "vaultpay-alb-sg"
+  description = "Security group for the VaultPay ALB"
+  vpc_id      = module.vpc.vpc_id
+
+  ingress {
+    description = "ALB to public subnets"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "ALB secure to public subnets"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name    = "${var.project_name}-alb-sg"
+    Project = var.project_name
+  }
+}
