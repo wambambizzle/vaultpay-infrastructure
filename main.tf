@@ -65,7 +65,7 @@ resource "aws_iam_instance_profile" "app" {
   }
 }
 
-resource "aws_security_group" "alb" {
+resource "aws_security_group" "alb_sg" {
   name        = "vaultpay-alb-sg"
   description = "Security group for the VaultPay ALB"
   vpc_id      = module.vpc.vpc_id
@@ -95,6 +95,19 @@ resource "aws_security_group" "alb" {
 
   tags = {
     Name    = "${var.project_name}-alb-sg"
+    Project = var.project_name
+  }
+}
+
+resource "aws_lb" "alb" {
+  name               = "${var.project_name}-alb"
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = [aws_security_group.alb_sg.id]
+  subnets            = module.vpc.public_subnet_ids
+
+  tags = {
+    Name    = "${var.project_name}-alb"
     Project = var.project_name
   }
 }
