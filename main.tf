@@ -177,6 +177,18 @@ resource "aws_launch_template" "app" {
     name = aws_iam_instance_profile.app.name
   }
 
+  user_data = base64encode(templatefile("${path.module}/user_data.sh", {
+    aws_region           = aws.region
+    ecr_registry         = split("/", aws_ecr_repository.vaultpay.repository_url)[0]
+    ecr_repository_url   = aws_ecr_repository.vaultpay.repository_url
+    image_tag            = var.image_tag
+    db_master_secret_arn = module.database.db_master_secret_arn
+    db_host              = split(":", module.database.db_endpoint)[0]
+    db_port              = module.database.db_port
+    db_name              = module.database.db_name
+    artifact_bucket_name = aws_s3_bucket.runtime.bucket
+  }))
+
   tag_specifications {
     resource_type = "instance"
 
