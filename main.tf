@@ -178,7 +178,7 @@ resource "aws_launch_template" "app" {
   }
 
   user_data = base64encode(templatefile("${path.module}/user_data.sh", {
-    aws_region           = aws.region
+    aws_region           = data.aws_region.current.region
     ecr_registry         = split("/", aws_ecr_repository.vaultpay.repository_url)[0]
     ecr_repository_url   = aws_ecr_repository.vaultpay.repository_url
     image_tag            = var.image_tag
