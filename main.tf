@@ -166,3 +166,23 @@ resource "aws_security_group" "app" {
     Project = var.project_name
   }
 }
+
+resource "aws_launch_template" "app" {
+  image_id               = "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-arm64"
+  instance_type          = "t4g.small"
+  vpc_security_group_ids = [aws_security_group.app.id]
+  name_prefix            = "${var.project_name}-app-"
+
+  iam_instance_profile {
+    name = aws_iam_instance_profile.app.name
+  }
+
+  tag_specifications {
+    resource_type = "instance"
+
+    tags = {
+      Name    = "${var.project_name}-app-launch-template"
+      Project = var.project_name
+    }
+  }
+}
