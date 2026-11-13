@@ -139,3 +139,30 @@ resource "aws_lb_listener" "http" {
     target_group_arn = aws_lb_target_group.app.arn
   }
 }
+
+resource "aws_security_group" "app" {
+  name        = "${var.project_name}-app-sg"
+  description = "Allow inbound HTTP from the interenet to the VaultPay ALB"
+  vpc_id      = module.vpc.vpc_id
+
+  ingress {
+    description     = "HTTP from anywhere"
+    from_port       = 80
+    to_port         = 80
+    protocol        = "tcp"
+    security_groups = [aws_security_group.alb.id]
+  }
+
+  egress {
+    description = "All outbound (ALB to targets)"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name    = "${var.project_name}-app-sg"
+    Project = var.project_name
+  }
+}
