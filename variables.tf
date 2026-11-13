@@ -71,3 +71,11 @@ variable "ecr_force_delete" {
   type        = bool
   default     = false
 }
+
+# Boot Script
+
+variable "image_tag" {
+  description = "Container image tag to deploy."
+  type        = string
+  default     = "latest"
+}
