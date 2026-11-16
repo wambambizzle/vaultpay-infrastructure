@@ -207,7 +207,7 @@ resource "aws_launch_template" "app" {
 resource "aws_autoscaling_group" "app" {
   # Idents
   name                      = "${var.project_name}-app-asg"
-  vpc_zone_identifier       = var.app_private_subnet_cidrs
+  vpc_zone_identifier       = module.vpc.app_private_subnet_ids
 
   # Capacity
   desired_capacity          = 2 
