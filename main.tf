@@ -215,8 +215,12 @@ resource "aws_autoscaling_group" "app" {
   max_size                  = 2
 
   # Config
-  launch_configuration      = aws_launch_template.app.name
   target_group_arns         = aws_lb_target_group.app.load_balancer_arns
+
+  launch_template {
+    id      = aws_launch_template.app.id
+    version = "$Latest"
+  }
 
   # Health
   health_check_type         = "ELB"
