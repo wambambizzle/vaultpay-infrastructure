@@ -203,3 +203,28 @@ resource "aws_launch_template" "app" {
     Project = var.project_name
   }
 }
+
+resource "aws_autoscaling_group" "app" {
+  # Idents
+  name                      = "${var.project_name}-app-asg"
+  vpc_zone_identifier       = var.app_private_subnet_cidrs
+
+  # Capacity
+  desired_capacity          = 2 
+  min_size                  = 2
+  max_size                  = 2
+
+  # Config
+  launch_configuration      = aws_launch_template.app.name
+  target_group_arns         = aws_lb_target_group.app.load_balancer_arns
+
+  # Health
+  health_check_type         = "ELB"
+  health_check_grace_period = 300
+
+  tag {
+    key                 = "Project"
+    value               = var.project_name
+    propagate_at_launch = true
+  }
+}
