@@ -24,7 +24,7 @@ module "database" {
   skip_final_snapshot       = var.skip_final_snapshot
   db_name                   = var.db_name
   db_username               = var.db_username
-  app_private_subnet_cidrs  = var.app_private_subnet_cidrs
+  app_sg_id                 = var.app_sg_id
 }
 
 resource "aws_iam_role" "app" {

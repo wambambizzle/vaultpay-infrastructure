@@ -43,7 +43,7 @@ variable "db_username" {
   type        = string
 }
 
-variable "app_private_subnet_cidrs" {
-  description = "CIDR blocks for the app private subnets"
-  type        = list(string)
+variable "app_sg_id" {
+  description = "The app security group id"  
+  type        = string
 }
