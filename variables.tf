@@ -57,11 +57,6 @@ variable "db_username" {
   type        = string
 }
 
-variable "app_sg_id" {
-  description = "The app security group id"  
-  type        = string
-}
-
 # ECR and Containers
 
 # The dangerous behavior should be protected as a default so we can't forget and do something "silly"

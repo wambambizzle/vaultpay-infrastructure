@@ -24,7 +24,7 @@ module "database" {
   skip_final_snapshot       = var.skip_final_snapshot
   db_name                   = var.db_name
   db_username               = var.db_username
-  app_sg_id                 = var.app_sg_id
+  app_sg_id                 = aws_security_group.app.id
 }
 
 resource "aws_iam_role" "app" {
