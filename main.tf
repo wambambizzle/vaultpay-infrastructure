@@ -50,14 +50,6 @@ resource "aws_security_group" "app" {
   description = "Allow inbound HTTP from the interenet to the VaultPay ALB"
   vpc_id      = module.vpc.vpc_id
 
-  ingress {
-    description     = "HTTP from anywhere"
-    from_port       = 80
-    to_port         = 80
-    protocol        = "tcp"
-    security_groups = [module.application.alb_security_group_id]
-  }
-
   egress {
     description = "All outbound (ECR, Secrets Manager, RDS, etc. via NAT)"
     from_port   = 0
@@ -70,4 +62,14 @@ resource "aws_security_group" "app" {
     Name    = "${var.project_name}-app-sg"
     Project = var.project_name
   }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "sg_ingress_rule" {
+  security_group_id            = aws_security_group.app.id
+  referenced_security_group_id = module.application.alb_security_group_id
+  description                  = "HTTP from anywhere"
+  cidr_ipv4                    = "10.0.0.0/8"
+  from_port                    = 80
+  to_port                      = 80
+  ip_protocol                  = "tcp"
 }
