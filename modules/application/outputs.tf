@@ -8,7 +8,18 @@ output "runtime_bucket_name" {
   value       = aws_s3_bucket.runtime.id
 }
 
+# TODO: is this still needed?
 output "runtime_bucket_arn" {
   description = "The ARN of the S3 bucket holding VaultPay runtime data."
   value       = aws_s3_bucket.runtime.arn
+}
+
+output "alb_security_group_id" {
+  description = "The ID for the app sg"
+  value       = aws_security_group.alb.id
+}
+
+output "alb_dns_name" {
+  description = "Public DNS name of the application load balancer."
+  value       = aws_lb.app.dns_name
 }
