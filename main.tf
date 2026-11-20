@@ -27,6 +27,14 @@ module "database" {
   app_sg_id                 = aws_security_group.app.id
 }
 
+module "application" {
+  source                    = "./modules/application"
+
+  project_name              = var.project_name
+  ecr_force_delete          = var.ecr_force_delete
+  s3_force_destroy          = var.s3_force_destroy
+}
+
 resource "aws_iam_role" "app" {
   name          = "${var.project_name}-app-role"
   description   = "The IAM role assumed by VaultPay application EC2 instances"
@@ -105,6 +113,7 @@ resource "aws_lb" "app" {
   }
 }
 
+# Stays at the Root for share use
 resource "aws_lb_target_group" "app" {
   name        = "${var.project_name}-tg"
   target_type = "instance"
@@ -179,14 +188,14 @@ resource "aws_launch_template" "app" {
 
   user_data = base64encode(templatefile("${path.module}/user_data.sh", {
     aws_region           = data.aws_region.current.region
-    ecr_registry         = split("/", aws_ecr_repository.vaultpay.repository_url)[0]
-    ecr_repository_url   = aws_ecr_repository.vaultpay.repository_url
+    ecr_registry         = split("/", module.application.ecr_repository_url)[0]
+    ecr_repository_url   = module.application.ecr_repository_url
     image_tag            = var.image_tag
     db_master_secret_arn = module.database.db_master_secret_arn
     db_host              = split(":", module.database.db_endpoint)[0]
     db_port              = module.database.db_port
     db_name              = var.db_name
-    artifact_bucket_name = aws_s3_bucket.runtime.id
+    artifact_bucket_name = module.application.runtime_bucket_name
   }))
 
   tag_specifications {

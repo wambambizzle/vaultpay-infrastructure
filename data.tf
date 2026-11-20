@@ -1,5 +1,3 @@
-data "aws_caller_identity" "current" {}
-
 data "aws_region" "current" {}
 
 data "aws_ssm_parameter" "al2023_arm64" {
@@ -28,6 +26,6 @@ data "aws_iam_policy_document" "app_runtime" {
   statement {
     sid     = "WriteRuntimeReports"
     actions = ["s3:PutObject"]
-    resources = ["${aws_s3_bucket.runtime.arn}/reports/*"]
+    resources = ["${module.application.runtime_bucket_arn}/reports/*"]
   }
 }
