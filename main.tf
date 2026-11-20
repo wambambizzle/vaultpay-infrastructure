@@ -68,7 +68,6 @@ resource "aws_vpc_security_group_ingress_rule" "sg_ingress_rule" {
   security_group_id            = aws_security_group.app.id
   referenced_security_group_id = module.application.alb_security_group_id
   description                  = "HTTP from anywhere"
-  cidr_ipv4                    = "10.0.0.0/8"
   from_port                    = 80
   to_port                      = 80
   ip_protocol                  = "tcp"
