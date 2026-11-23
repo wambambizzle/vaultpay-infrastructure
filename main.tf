@@ -33,13 +33,13 @@ module "application" {
   project_name            = var.project_name
   vpc_id                  = module.vpc.vpc_id
   public_subnet_ids       = module.vpc.public_subnet_ids
+  app_private_subnet_ids  = module.vpc.app_private_subnet_ids
   app_security_group_id   = aws_security_group.app.id
   db_master_secret_arn    = module.database.db_master_secret_arn 
   db_endpoint             = module.database.db_endpoint
   db_port                 = module.database.db_port
-  db_name                 = var.db_name
+  db_name                 = module.database.db_name
   image_tag               = var.image_tag
-  app_private_subnet_ids  = module.vpc.app_private_subnet_ids
   ecr_force_delete        = var.ecr_force_delete
   s3_force_destroy        = var.s3_force_destroy
 }
