@@ -13,18 +13,18 @@ module "vpc" {
 }
 
 module "database" {
-  source                    = "./modules/database"
+  source                   = "./modules/database"
 
-  project_name              = var.project_name
-  db_private_subnet_ids     = module.vpc.db_private_subnet_ids
-  vpc_id                    = module.vpc.vpc_id
-  multi_az                  = var.multi_az
-  backup_retention_period   = var.backup_retention_period 
-  deletion_protection       = var.deletion_protection
-  skip_final_snapshot       = var.skip_final_snapshot
-  db_name                   = var.db_name
-  db_username               = var.db_username
-  app_sg_id                 = aws_security_group.app.id
+  project_name             = var.project_name
+  db_private_subnet_ids    = module.vpc.db_private_subnet_ids
+  vpc_id                   = module.vpc.vpc_id
+  multi_az                 = var.multi_az
+  backup_retention_period  = var.backup_retention_period 
+  deletion_protection      = var.deletion_protection
+  skip_final_snapshot      = var.skip_final_snapshot
+  db_name                  = var.db_name
+  db_username              = var.db_username
+  app_security_group_id    = aws_security_group.app.id
 }
 
 module "application" {
@@ -32,8 +32,8 @@ module "application" {
 
   project_name            = var.project_name
   vpc_id                  = module.vpc.vpc_id
-  lb_public_subnet_ids    = module.vpc.public_subnet_ids
-  app_sg_id               = aws_security_group.app.id
+  public_subnet_ids       = module.vpc.public_subnet_ids
+  app_security_group_id   = aws_security_group.app.id
   db_master_secret_arn    = module.database.db_master_secret_arn 
   db_endpoint             = module.database.db_endpoint
   db_port                 = module.database.db_port

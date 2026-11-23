@@ -110,7 +110,7 @@ resource "aws_lb" "app" {
   load_balancer_type = "application"
   internal           = false
   security_groups    = [aws_security_group.alb.id]
-  subnets            = var.lb_public_subnet_ids
+  subnets            = var.public_subnet_ids
 
   tags = {
     Name    = "${var.project_name}-alb"
@@ -157,7 +157,7 @@ resource "aws_launch_template" "app" {
   name_prefix            = "${var.project_name}-app-"
   image_id               = data.aws_ssm_parameter.al2023_arm64.value
   instance_type          = "t4g.small"
-  vpc_security_group_ids = [var.app_sg_id]
+  vpc_security_group_ids = [var.app_security_group_id]
 
   iam_instance_profile {
     name = aws_iam_instance_profile.app.name

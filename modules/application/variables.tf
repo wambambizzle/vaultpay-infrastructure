@@ -49,7 +49,7 @@ variable "ecr_force_delete" {
 
 # VPC
 
-variable "lb_public_subnet_ids" {
+variable "public_subnet_ids" {
   description = "The IDs the load balancers public subnets"
   type        = list(string)
 }
@@ -67,7 +67,7 @@ variable "image_tag" {
   default     = "latest"
 }
 
-variable "app_sg_id" {
+variable "app_security_group_id" {
   description = "The app security group id"  
   type        = string
 }
