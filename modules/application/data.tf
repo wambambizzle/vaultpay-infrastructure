@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "ec2_assume_role" {
 
 data "aws_iam_policy_document" "app_runtime" {
   statement {
-    sid     = "Read"
+    sid     = "ReadDatabaseSecret"
     actions = ["secretsmanager:GetSecretValue"]
     resources = [var.db_master_secret_arn]
   }
