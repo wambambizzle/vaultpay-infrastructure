@@ -1,7 +1,5 @@
-# General
-
 variable "project_name" {
-  description = "The Project name"
+  description = "Project name used for resource naming and tags"
   type        = string
 }
 
@@ -25,57 +23,51 @@ variable "db_private_subnet_cidrs" {
   type        = list(string)
 }
 
-# Database
-
 variable "multi_az" {
-  description = "Multi avaialbity zone"
+  description = "Whether to deploy the RDS instance across multiple availability zones."
   type        = bool
 }
 
 variable "backup_retention_period" {
-  description = "The backup retention period"
+  description = "The number of days to retain automated backups."
   type        = number
 }
 
 variable "deletion_protection" {
-  description = "If the server has deletion protection"
+  description = "Whether deletion protection is enabled on the RDS instance."
   type        = bool
 }
 
 variable "skip_final_snapshot" {
-  description = "If RDS should skip the final snapshot"
+  description = "Whether to skip the final snapshot when the instance is destroyed."
   type        = bool
 }
 
 variable "db_name" {
-  description = "The rds database name"
+  description = "The name of the database to create in the RDS instance."
   type        = string
 }
 
 variable "db_username" {
-  description = "The rds database username"
+  description = "The master username for the RDS database."
   type        = string
 }
 
-# ECR and Containers
-
-# The dangerous behavior should be protected as a default so we can't forget and do something "silly"
 variable "s3_force_destroy" {
-  description = "If the aws S3 bucket should allow force deletion"
+  description = "When true, terraform destroy will delete the runtime S3 bucket even if it contains objects. Production should leave this false; the default guard prevents accidental data loss."
   type        = bool
+  # The dangerous behavior should be protected as a default so we can't forget and do something "silly"
   default     = false
 }
 
 variable "ecr_force_delete" {
-  description = "If the aws ecr repository should allow force deletion"
+  description = "When true, terraform destroy will delete the ECR repository even if it contains images. Production should leave this false; the default guard prevents accidental destruction of rollback image history."
   type        = bool
   default     = false
 }
 
-# Boot Script
-
 variable "image_tag" {
-  description = "Container image tag to deploy."
+  description = "Tag of the VaultPay container image in ECR that the launch template tells instances to pull. Defaults to 'latest'; CI/CD pipelines should pin to immutable digests or version tags in production."
   type        = string
   default     = "latest"
 }

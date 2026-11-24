@@ -1,73 +1,63 @@
-# General
-
 variable "project_name" {
-  description = "The name used for resource naming and tags"
+  description = "Project name used for resource naming and tags."
   type        = string
 }
 
 variable "vpc_id" {
-  description = "The id of the VPC to associate to"
+  description = "The ID of the VPC where the application tier will be deployed."
   type        = string
 }
 
-# Database
-
 variable "db_name" {
-  description = "The rds database name"
+  description = "The name of the PostgreSQL database inside RDS."
   type        = string
 }
 
 variable "db_endpoint" {
-  description = "The endpoint address of the RDS database instance."
+  description = "The RDS endpoint in 'host:port' form. The module extracts the host and passes it to the container."
   type        = string
 }
 
 variable "db_port" {
-  description = "The port for the RDS database"
+  description = "The port number for the RDS instance."
   type        = string
 }
 
 variable "db_master_secret_arn" {
-  description = "The master secret arn for the RDS database"
+  description = "The ARN of the Secrets Manager secret holding the RDS master credentials. The instance role is scoped to read only this secret."
   type        = string
 }
 
-# ECR and Containers
-
-# The dangerous behavior should be protected as a default so we can't forget and do something "silly"
 variable "s3_force_destroy" {
-  description = "If the aws S3 bucket should allow force deletion"
+  description = "When true, terraform destroy will delete the runtime S3 bucket even if it contains objects."
   type        = bool
+  # The dangerous behavior should be protected as a default so we can't forget and do something "silly"
   default     = false
 }
 
 variable "ecr_force_delete" {
-  description = "If the aws ecr repository should allow force deletion"
+  description = "When true, terraform destroy will delete the ECR repository even if it contains images."
   type        = bool
   default     = false
 }
 
-# VPC
-
 variable "public_subnet_ids" {
-  description = "The IDs the load balancers public subnets"
+  description = "A list of public subnet IDs for the ALB."
   type        = list(string)
 }
 
 variable "app_private_subnet_ids" {
-  description = "IDs of the app private subnets"
+  description = "A list of app-private subnet IDs for the Auto Scaling Group."
   type        = list(string)
 }
 
-# Boot Script
-
 variable "image_tag" {
-  description = "Container image tag to deploy."
+  description = "Tag of the VaultPay container image in ECR that the launch template tells instances to pull."
   type        = string
   default     = "latest"
 }
 
 variable "app_security_group_id" {
-  description = "The app security group id"  
+  description = "Security group ID assigned to the application EC2 instances. The database module's SG is configured to allow ingress from this SG."
   type        = string
 }

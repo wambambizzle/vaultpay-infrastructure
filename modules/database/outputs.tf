@@ -4,7 +4,7 @@ output "db_endpoint" {
 }
 
 output "db_port" {
-  description = "The port for the RDS database"
+  description = "The port number of the RDS database instance."
   value       = aws_db_instance.vaultpay.port
 }
 
@@ -19,6 +19,6 @@ output "db_security_group_id" {
 }
 
 output "db_master_secret_arn" {
-  description = "The master secret arn for the RDS database"
+  description = "The ARN of the Secrets Manager secret containing the master database credentials."
   value       = aws_db_instance.vaultpay.master_user_secret[0].secret_arn
 }

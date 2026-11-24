@@ -47,7 +47,7 @@ module "application" {
 # Stays at the Root for shared use
 resource "aws_security_group" "app" {
   name        = "${var.project_name}-app-sg"
-  description = "Allow inbound HTTP from the interenet to the VaultPay ALB"
+  description = "Allow inbound HTTP from the ALB to the VaultPay app instances"
   vpc_id      = module.vpc.vpc_id
 
   egress {
@@ -67,8 +67,8 @@ resource "aws_security_group" "app" {
 resource "aws_vpc_security_group_ingress_rule" "sg_ingress_rule" {
   security_group_id            = aws_security_group.app.id
   referenced_security_group_id = module.application.alb_security_group_id
-  description                  = "HTTP from ALB"
+  ip_protocol                  = "tcp"
   from_port                    = 80
   to_port                      = 80
-  ip_protocol                  = "tcp"
+  description                  = "HTTP from ALB"
 }

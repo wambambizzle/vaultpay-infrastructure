@@ -1,9 +1,5 @@
-# ECR Resources
-
 resource "aws_ecr_repository" "vaultpay" {
   name         = var.project_name
-
-  # DESTORY GUARD TOGGLE
   force_delete = var.ecr_force_delete
 
   image_scanning_configuration {
@@ -17,10 +13,8 @@ resource "aws_ecr_repository" "vaultpay" {
 }
 
 resource "aws_s3_bucket" "runtime" {
-  # bucket names be globally unique
+  # bucket names must be globally unique
   bucket        = "${data.aws_caller_identity.current.account_id}-${var.project_name}-runtime"
-
-  # DESTORY GUARD TOGGLE
   force_destroy = var.s3_force_destroy
 
   tags = {
@@ -38,11 +32,9 @@ resource "aws_s3_bucket_public_access_block" "runtime" {
   restrict_public_buckets = true
 }
 
-# IAM Resources
-
 resource "aws_iam_role" "app" {
   name          = "${var.project_name}-app-role"
-  description   = "The IAM role assumed by VaultPay application EC2 instances"
+  description   = "IAM role assumed by VaultPay application EC2 instances"
 
   assume_role_policy = data.aws_iam_policy_document.ec2_assume_role.json
 
@@ -80,7 +72,7 @@ resource "aws_iam_instance_profile" "app" {
 
 resource "aws_security_group" "alb" {
   name        = "${var.project_name}-alb-sg"
-  description = "Allow inbound HTTP from the interenet to the VaultPay ALB"
+  description = "Allow inbound HTTP from the internet to the VaultPay ALB"
   vpc_id      = var.vpc_id
 
   ingress {
@@ -191,16 +183,12 @@ resource "aws_launch_template" "app" {
 }
 
 resource "aws_autoscaling_group" "app" {
-  # Idents
   name                      = "${var.project_name}-app-asg"
   vpc_zone_identifier       = var.app_private_subnet_ids
-
-  # Capacity
   desired_capacity          = 2 
   min_size                  = 2
   max_size                  = 2
 
-  # Config
   launch_template {
     id      = aws_launch_template.app.id
     version = aws_launch_template.app.latest_version
@@ -208,7 +196,6 @@ resource "aws_autoscaling_group" "app" {
 
   target_group_arns         = [aws_lb_target_group.app.arn]
 
-  # Health
   health_check_type         = "ELB"
   health_check_grace_period = 300
 

@@ -1,5 +1,5 @@
 output "ecr_repository_url" {
-  description = "URL of the ECR repository holding the VaultPay container image. Use this when pushing images mnanually with .."
+  description = "URL of the ECR repository holding the VaultPay container image."
   value       = aws_ecr_repository.vaultpay.repository_url
 }
 
@@ -9,7 +9,7 @@ output "runtime_bucket_name" {
 }
 
 output "alb_security_group_id" {
-  description = "The ID for the app sg"
+  description = "Security group ID of the ALB. The root configuration uses this to allow ingress to the app SG from the ALB."
   value       = aws_security_group.alb.id
 }
 

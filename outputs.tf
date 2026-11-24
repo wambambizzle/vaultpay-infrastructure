@@ -1,5 +1,5 @@
 output "ecr_repository_url" {
-  description = "URL of the ECR repository holding the VaultPay container image. Use this when pushing images mnanually with .."
+  description = "URL of the ECR repository holding the VaultPay container image. Use this when pushing images manually with docker push."
   value       = module.application.ecr_repository_url
 }
 

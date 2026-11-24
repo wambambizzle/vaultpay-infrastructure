@@ -1,49 +1,49 @@
 variable "vpc_id" {
-  description = "The id of the VPC to associate to"
+  description = "The ID of the VPC where the database will be deployed."
   type        = string
 }
 
 variable "db_private_subnet_ids" {
-  description = "The database private subnets to use"
+  description = "A list of subnet IDs for the DB subnet group."
   type        = list(string)
 }
 
 variable "project_name" {
-  description = "The name used for resource naming and tags"
+  description = "The project name used for resource naming and tags."
   type        = string
 }
 
 variable "multi_az" {
-  description = "Multi avaialbity zone"
+  description = "Whether to deploy the RDS instance across multiple availability zones."
   type        = bool
 }
 
 variable "backup_retention_period" {
-  description = "The backup retention period"
+  description = "Number of days to retain automated backups."
   type        = number
 }
 
 variable "deletion_protection" {
-  description = "If the server has deletion protection"
+  description = "Whether deletion protection is enabled on the RDS instance."
   type        = bool
 }
 
 variable "skip_final_snapshot" {
-  description = "If RDS should skip the final snapshot"
+  description = "Whether to skip the final snapshot when the instance is destroyed."
   type        = bool
 }
 
 variable "db_name" {
-  description = "The rds database name"
+  description = "The name of the database to create in the RDS instance."
   type        = string
 }
 
 variable "db_username" {
-  description = "The rds database username"
+  description = "The master username for the RDS database."
   type        = string
 }
 
 variable "app_security_group_id" {
-  description = "The app security group id"  
+  description = "Security group ID of the application servers. The database security group allows ingress only from this SG."
   type        = string
 }
