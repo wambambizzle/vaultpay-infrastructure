@@ -56,8 +56,7 @@ Prerequisites:
 - An AWS account, the AWS CLI configured, and Terraform installed.
 - An S3 bucket for Terraform state, with its name set in `backend.tf`.
 - The app image built and pushed to the ECR repository this stack creates (run `terraform apply` once to create the empty repo, then push your image).
-- Docker image commands:
-```
+```bash
 docker pull cloudportfoliosystem/vaultpay:latest
 docker tag cloudportfoliosystem/vaultpay:latest <account-id>.dkr.ecr.us-east-1.amazonaws.com/vaultpay:latest aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <account-id>.dkr.ecr.us-east-1.amazonaws.com
 docker push <account-id>.dkr.ecr.us-east-1.amazonaws.com/vaultpay:latest
@@ -78,4 +77,3 @@ terraform apply -var-file=env_vars/dev.tfvars
 ---
 
 Built by ~~wambambizzle~~ Jordan Anderson as a portfolio project.
-Linkedin: https://www.linkedin.com/in/jordan-anderson-785a5724/
