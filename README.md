@@ -76,4 +76,4 @@ terraform apply -var-file=env_vars/dev.tfvars
 
 ---
 
-Built by ~~wambambizzle~~ Jordan A. as a portfolio project.
+Built by ~~wambambizzle~~ Jordan Anderson as a portfolio project.
